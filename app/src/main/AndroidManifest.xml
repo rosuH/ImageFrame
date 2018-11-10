@@ -16,7 +16,7 @@
     <activity android:name=".MainActivity">
 
     </activity>
-    <activity android:name=".AnimActivity">
+    <activity android:name=".ControllerActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 

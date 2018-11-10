@@ -41,7 +41,7 @@ public class ImageFrameCustomView extends View {
   @Override
   protected void onDetachedFromWindow() {
     if (imageFrameHandler != null) {
-      imageFrameHandler.stop();
+      imageFrameHandler.destroy();
     }
     super.onDetachedFromWindow();
   }
@@ -50,7 +50,7 @@ public class ImageFrameCustomView extends View {
     if (this.imageFrameHandler == null) {
       this.imageFrameHandler = imageFrameHandler;
     }else{
-      this.imageFrameHandler.stop();
+      this.imageFrameHandler.destroy();
       this.imageFrameHandler = imageFrameHandler;
     }
     imageFrameHandler.setOnImageLoaderListener(new ImageFrameHandler.OnImageLoadListener() {

@@ -15,180 +15,180 @@ import java.io.File;
 
 /**
  *
- * 
+ *
  */
 public class MainActivity extends AppCompatActivity {
-  public String testDir =
-      Environment.getExternalStorageDirectory().getAbsolutePath()
-          + File.separator + "360/abc";
-  private long start;
-  private ImageFrameHandler proxy;
+    public String testDir =
+            Environment.getExternalStorageDirectory().getAbsolutePath()
+                    + File.separator + "360/abc";
+    private long start;
+    private ImageFrameHandler proxy;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    final ImageFrameView imageFrame = (ImageFrameView) findViewById(R.id.image_frame);
-    final ImageFrameCustomView imageFrameCustomView =
-        (ImageFrameCustomView) findViewById(R.id.image_custom_frame);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        final ImageFrameView imageFrame = (ImageFrameView) findViewById(R.id.image_frame);
+        final ImageFrameCustomView imageFrameCustomView =
+                (ImageFrameCustomView) findViewById(R.id.image_custom_frame);
 
-    start = System.currentTimeMillis();
-
-
-    View pause = findViewById(R.id.pause);
-    View start = findViewById(R.id.start);
-    // loadDir(imageFrame);
-
-    // loadFile(imageFrame);
+        start = System.currentTimeMillis();
 
 
-    // proxy = new ImageFrameHandler();
-    // imageFrame.setOnClickListener(new View.OnClickListener() {
-    // @Override
-    // public void onClick(View v) {
-    // loadRes(imageFrame);
-    // }
-    // });
+        View pause = findViewById(R.id.pause);
+        View start = findViewById(R.id.start);
+        // loadDir(imageFrame);
 
-    imageFrameCustomView.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        loadResBuilder(imageFrameCustomView);
-        // loadFileBuilder(imageFrameCustomView);
-      }
-    });
+        // loadFile(imageFrame);
 
-    pause.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (imageFrameCustomView.getImageFrameHandler() != null) {
-          imageFrameCustomView.getImageFrameHandler().pause();
-        }
-      }
-    });
 
-    start.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (imageFrameCustomView.getImageFrameHandler() != null) {
-          imageFrameCustomView.getImageFrameHandler().start();
-        }
-      }
-    });
-  }
+        // proxy = new ImageFrameHandler();
+        // imageFrame.setOnClickListener(new View.OnClickListener() {
+        // @Override
+        // public void onClick(View v) {
+        // loadRes(imageFrame);
+        // }
+        // });
 
-  private void loadRes(final ImageFrameView imageFrame) {
-    final int[] resIds = new int[210];
-    Resources res = getResources();
-    final String packageName = getPackageName();
-    for (int i = 0; i < resIds.length; i++) {
-      int imageResId = res.getIdentifier("gift_" + (i + 1), "drawable", packageName);
-      resIds[i] = imageResId;
-      Log.e("TAG", "imageResId=" + imageResId);
-    }
-    imageFrame.setLoop(true);
-    imageFrame.loadImage(resIds, 30, new ImageFrameHandler.OnImageLoadListener() {
-      @Override
-      public void onImageLoad(BitmapDrawable drawable) {
-        ViewCompat.setBackground(imageFrame, drawable);
-      }
+        imageFrameCustomView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadResBuilder(imageFrameCustomView);
+                // loadFileBuilder(imageFrameCustomView);
+            }
+        });
 
-      @Override
-      public void onPlayFinish() {
-        Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
-      }
-    });
-  }
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageFrameCustomView.getImageFrameHandler() != null) {
+                    imageFrameCustomView.getImageFrameHandler().pause();
+                }
+            }
+        });
 
-  private void loadResBuilder(final ImageFrameCustomView imageFrame) {
-    final int[] resIds = new int[210];
-    Resources res = getResources();
-    final String packageName = getPackageName();
-    for (int i = 0; i < resIds.length; i++) {
-      int imageResId = res.getIdentifier("gift_" + (i + 1), "drawable", packageName);
-      resIds[i] = imageResId;
-      Log.e("TAG", "imageResId=" + imageResId);
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageFrameCustomView.getImageFrameHandler() != null) {
+                    imageFrameCustomView.getImageFrameHandler().start();
+                }
+            }
+        });
     }
 
-    ImageFrameHandler build = new ImageFrameHandler.ResourceHandlerBuilder(getResources(), resIds)
-        // .setStartIndex(10)
-        .setFps(10)
-        .setLoop(true)
-        // .openLruCache(true)
-        .build();
-
-    imageFrame.startImageFrame(build);
-
-
-  }
-
-  private void loadFileBuilder(final ImageFrameCustomView imageFrame) {
-    // File file =
-    // new File("/storage/sdcard0/blink_thor/gameRes/25/werewolfkill_appear_anim/res_1_8_10_png");
-    File file =
-        new File(testDir);
-    imageFrame.startImageFrame(new ImageFrameHandler.FileHandlerBuilder(file.listFiles())
-        .setFps(40)
-        .setLoop(true)
-        // .openLruCache(true)
-        .build());
-  }
-
-  //
-
-  private void loadFile(final ImageFrameView imageFrame) {
-    final File dir = new File(testDir);
-    if (dir.isDirectory()) {
-      imageFrame.setLoop(true);
-      imageFrame.loadImage(dir.listFiles(), 30, new ImageFrameHandler.OnImageLoadListener() {
-
-        @Override
-        public void onImageLoad(BitmapDrawable drawable) {
-          ViewCompat.setBackground(imageFrame, drawable);
+    private void loadRes(final ImageFrameView imageFrame) {
+        final int[] resIds = new int[210];
+        Resources res = getResources();
+        final String packageName = getPackageName();
+        for (int i = 0; i < resIds.length; i++) {
+            int imageResId = res.getIdentifier("gift_" + (i + 1), "drawable", packageName);
+            resIds[i] = imageResId;
+            Log.e("TAG", "imageResId=" + imageResId);
         }
+        imageFrame.setLoop(true);
+        imageFrame.loadImage(resIds, 30, new ImageFrameHandler.OnImageLoadListener() {
+            @Override
+            public void onImageLoad(BitmapDrawable drawable) {
+                ViewCompat.setBackground(imageFrame, drawable);
+            }
 
-        @Override
-        public void onPlayFinish() {
-          Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start) + " thread="
-              + Thread.currentThread().getName());
-        }
-      });
+            @Override
+            public void onPlayFinish() {
+                Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
+            }
+        });
     }
-  }
 
-  private void loadDir(final ImageFrameView imageFrame) {
-    imageFrame.loadImage(testDir, 30, new ImageFrameHandler.OnImageLoadListener() {
+    private void loadResBuilder(final ImageFrameCustomView imageFrame) {
+        final int[] resIds = new int[210];
+        Resources res = getResources();
+        final String packageName = getPackageName();
+        for (int i = 0; i < resIds.length; i++) {
+            int imageResId = res.getIdentifier("gift_" + (i + 1), "drawable", packageName);
+            resIds[i] = imageResId;
+            Log.e("TAG", "imageResId=" + imageResId);
+        }
 
-      @Override
-      public void onImageLoad(BitmapDrawable drawable) {
-        ViewCompat.setBackground(imageFrame, drawable);
-      }
+        ImageFrameHandler build = new ImageFrameHandler.ResourceHandlerBuilder(getResources(), resIds)
+                // .setStartIndex(10)
+                .setFps(10)
+                .setLoop(true)
+                // .openLruCache(true)
+                .build();
 
-      @Override
-      public void onPlayFinish() {
-        Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
-      }
-    });
-  }
+        imageFrame.startImageFrame(build);
 
-  private void loadDirFromProxy(final ImageFrameView imageFrame) {
-    proxy.loadImage(testDir, 30, new ImageFrameHandler.OnImageLoadListener() {
 
-      @Override
-      public void onImageLoad(BitmapDrawable drawable) {
-        ViewCompat.setBackground(imageFrame, drawable);
-      }
+    }
 
-      @Override
-      public void onPlayFinish() {
-        Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
-      }
-    });
-  }
+    private void loadFileBuilder(final ImageFrameCustomView imageFrame) {
+        // File file =
+        // new File("/storage/sdcard0/blink_thor/gameRes/25/werewolfkill_appear_anim/res_1_8_10_png");
+        File file =
+                new File(testDir);
+        imageFrame.startImageFrame(new ImageFrameHandler.FileHandlerBuilder(file.listFiles())
+                .setFps(40)
+                .setLoop(true)
+                // .openLruCache(true)
+                .build());
+    }
 
-  @Override
-  protected void onDestroy() {
-    proxy.stop();
-    super.onDestroy();
-  }
+    //
+
+    private void loadFile(final ImageFrameView imageFrame) {
+        final File dir = new File(testDir);
+        if (dir.isDirectory()) {
+            imageFrame.setLoop(true);
+            imageFrame.loadImage(dir.listFiles(), 30, new ImageFrameHandler.OnImageLoadListener() {
+
+                @Override
+                public void onImageLoad(BitmapDrawable drawable) {
+                    ViewCompat.setBackground(imageFrame, drawable);
+                }
+
+                @Override
+                public void onPlayFinish() {
+                    Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start) + " thread="
+                            + Thread.currentThread().getName());
+                }
+            });
+        }
+    }
+
+    private void loadDir(final ImageFrameView imageFrame) {
+        imageFrame.loadImage(testDir, 30, new ImageFrameHandler.OnImageLoadListener() {
+
+            @Override
+            public void onImageLoad(BitmapDrawable drawable) {
+                ViewCompat.setBackground(imageFrame, drawable);
+            }
+
+            @Override
+            public void onPlayFinish() {
+                Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
+            }
+        });
+    }
+
+    private void loadDirFromProxy(final ImageFrameView imageFrame) {
+        proxy.loadImage(testDir, 30, new ImageFrameHandler.OnImageLoadListener() {
+
+            @Override
+            public void onImageLoad(BitmapDrawable drawable) {
+                ViewCompat.setBackground(imageFrame, drawable);
+            }
+
+            @Override
+            public void onPlayFinish() {
+                Log.i("TAG", "userTime=" + (System.currentTimeMillis() - start));
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        proxy.destroy();
+        super.onDestroy();
+    }
 }

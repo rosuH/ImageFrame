@@ -6,25 +6,25 @@ package com.mrwang.imageframe;
  * Time: 下午3:06
  */
 public interface FrameBuild {
-  public FrameBuild setLoop(boolean loop);
+    public FrameBuild setLoop(boolean loop);
 
-  public FrameBuild stop();
+    public FrameBuild stop();
 
-  public FrameBuild clip();
+    public FrameBuild clip();
 
-  public FrameBuild setStartIndex(int startIndex);
+    public FrameBuild setStartIndex(int startIndex);
 
-  public FrameBuild setEndIndex(int endIndex);
+    public FrameBuild setEndIndex(int endIndex);
 
-  public FrameBuild setWidth(int width);
+    public FrameBuild setWidth(int width);
 
-  public FrameBuild setHeight(int height);
+    public FrameBuild setHeight(int height);
 
-  public FrameBuild setFps(int fps);
+    public FrameBuild setFps(int fps);
 
-  public FrameBuild openLruCache(boolean isOpenCache);
+    public FrameBuild openLruCache(boolean isOpenCache);
 
-  public FrameBuild setOnImageLoaderListener(ImageFrameHandler.OnImageLoadListener onPlayFinish);
+    public FrameBuild setOnImageLoaderListener(ImageFrameHandler.OnImageLoadListener onPlayFinish);
 
-  ImageFrameHandler build();
+    ImageFrameHandler build();
 }

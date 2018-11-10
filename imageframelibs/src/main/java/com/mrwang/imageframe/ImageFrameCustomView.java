@@ -16,63 +16,63 @@ import android.view.View;
  * Time: 下午2:50
  */
 public class ImageFrameCustomView extends View {
-  private ImageFrameHandler imageFrameHandler;
+    private ImageFrameHandler imageFrameHandler;
 
-  public ImageFrameCustomView(Context context) {
-    super(context);
-  }
-
-  public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-  }
-
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
-                              int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
-  }
-
-  @Override
-  protected void onDetachedFromWindow() {
-    if (imageFrameHandler != null) {
-      imageFrameHandler.stop();
+    public ImageFrameCustomView(Context context) {
+        super(context);
     }
-    super.onDetachedFromWindow();
-  }
 
-  public void startImageFrame(final ImageFrameHandler imageFrameHandler) {
-    if (this.imageFrameHandler == null) {
-      this.imageFrameHandler = imageFrameHandler;
-    }else{
-      this.imageFrameHandler.stop();
-      this.imageFrameHandler = imageFrameHandler;
+    public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
     }
-    imageFrameHandler.setOnImageLoaderListener(new ImageFrameHandler.OnImageLoadListener() {
-      @Override
-      public void onImageLoad(BitmapDrawable drawable) {
-        ViewCompat.setBackground(ImageFrameCustomView.this, drawable);
-      }
+
+    public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ImageFrameCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
+                                int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (imageFrameHandler != null) {
+            imageFrameHandler.destroy();
+        }
+        super.onDetachedFromWindow();
+    }
+
+    public void startImageFrame(final ImageFrameHandler imageFrameHandler) {
+        if (this.imageFrameHandler == null) {
+            this.imageFrameHandler = imageFrameHandler;
+        } else {
+            this.imageFrameHandler.destroy();
+            this.imageFrameHandler = imageFrameHandler;
+        }
+        imageFrameHandler.setOnImageLoaderListener(new ImageFrameHandler.OnImageLoadListener() {
+            @Override
+            public void onImageLoad(BitmapDrawable drawable) {
+                ViewCompat.setBackground(ImageFrameCustomView.this, drawable);
+            }
 
       @Override
       public void onPlayFinish() {
 
-      }
-    });
-    post(new Runnable() {
-      @Override
-      public void run() {
-        imageFrameHandler.start();
-      }
-    });
+            }
+        });
+        post(new Runnable() {
+            @Override
+            public void run() {
+                imageFrameHandler.start();
+            }
+        });
 
-  }
+    }
 
-  @Nullable
-  public ImageFrameHandler getImageFrameHandler() {
-    return imageFrameHandler;
-  }
+    @Nullable
+    public ImageFrameHandler getImageFrameHandler() {
+        return imageFrameHandler;
+    }
 }

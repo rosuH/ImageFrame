@@ -135,7 +135,7 @@ public class ImageFrameView extends View {
 
   @Override
   protected void onDetachedFromWindow() {
-    proxy.stop();
+    proxy.destroy();
     super.onDetachedFromWindow();
   }
 
@@ -144,7 +144,7 @@ public class ImageFrameView extends View {
   }
 
   public void stop() {
-    proxy.stop();
+    proxy.destroy();
   }
 
 }
