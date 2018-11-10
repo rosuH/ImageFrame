@@ -49,6 +49,18 @@ project build.gradle加入**jitpack**仓库
 	}
 ```
 
+## V1.3.1 fork 版修改说明
+
+因为原始仓库的版本的控制方法（`start(), pause(), stop()`）在实际使用中并不是很好用：比如我想单次播放完再重头播放，但是不想循环。如果是原仓库就需要重新实例一个`ImageFrameHandler.ResourceHandlerBuilder`对象。
+所以此修改版调整为类似视频播放的调节方式：
+
+- `start()` 开始方法，会从头开始播放，无论你什么时候调用，只要不调用`destroy()`，那么`start()`方法就总是可用的
+- `pause()` 暂停方法，暂停在某一帧，和原仓库一样
+- `resume()` 恢复方法，用于从`pause()`方法中恢复播放状态
+- `destroy()` 销毁方法，此方法会销毁任务，一旦销毁了就必须重新实例化一个`ImageFrameHandler.ResourceHandlerBuilder`对象
+
+以及此 fork 也暴露出`isRunning()`状态，方便判断。
+
 
 ## V1.3 重大更新,流式API,指定播放位置,暂停,专注于序列帧解析,更强大的自定义功能;
 
